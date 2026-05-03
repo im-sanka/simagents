@@ -14,13 +14,13 @@ keywords = ["agents", "llm", "orchestration", "multi-agent", "prompt-engineering
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Topic :: Software Development :: Libraries",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+license-files = ["LICENSE"]
 dependencies = [
   "pydantic>=2.7.0",
   "pydantic-settings>=2.4.0",
@@ -38,7 +38,6 @@ dev = ["pytest>=8.0.0"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-license-files = ["LICENSE"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

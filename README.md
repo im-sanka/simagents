@@ -35,6 +35,7 @@ pip install -e ".[dev]"
 
 - `OpenAIProvider`
 - `OllamaProvider`
+- `OllamaCloudProvider`
 - `GroqProvider`
 - `TogetherProvider`
 - `OpenRouterProvider`
@@ -53,14 +54,15 @@ Fallback key env var:
 
 Provider-specific common keys:
 - `OLLAMA_API_KEY`, `OLLAMA_BASE_URL`
+- `OLLAMA_CLOUD_API_KEY`, `OLLAMA_CLOUD_BASE_URL` (defaults to `https://ollama.com/`)
 - `GROQ_API_KEY`
 - `TOGETHER_API_KEY`
 - `OPENROUTER_API_KEY`
 - `ANTHROPIC_API_KEY`
 
 Claude model examples:
-- `claude-3-5-sonnet-latest`
-- `claude-3-7-sonnet-latest`
+- `claude-4-6-sonnet-latest`
+- `claude-4-7-opus-latest`
 
 ## Quickstart
 
