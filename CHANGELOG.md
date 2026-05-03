@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0
+
+- Updated `OllamaCloudProvider` default base URL to `https://ollama.com/v1`
+- Added pluggable web search providers under `simagents.web_search`:
+  - `TavilySearchProvider` (`TAVILY_API_KEY`)
+  - `DuckDuckGoSearchProvider` (no API key required)
+  - `GoogleCustomSearchProvider` (`GOOGLE_API_KEY`, `GOOGLE_CSE_ID`)
+- Added `SearchItem` model and `format_search_results(...)` helper
+- Exported web search providers from top-level `simagents` package
+
 ## 0.1.0
 
 - Initial release of `simagents`

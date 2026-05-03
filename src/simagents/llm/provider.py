@@ -48,7 +48,7 @@ class OllamaProvider(OpenAICompatibleProvider):
 class OllamaCloudProvider(OpenAICompatibleProvider):
     def __init__(self, api_key: str | None = None, base_url: str | None = None) -> None:
         super().__init__(
-            base_url=base_url or os.getenv("OLLAMA_CLOUD_BASE_URL", "https://ollama.com/"),
+            base_url=base_url or os.getenv("OLLAMA_CLOUD_BASE_URL", "https://ollama.com/v1"),
             api_key=api_key or os.getenv("OLLAMA_CLOUD_API_KEY") or os.getenv("OLLAMA_API_KEY"),
         )
 

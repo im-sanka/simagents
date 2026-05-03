@@ -54,11 +54,16 @@ Fallback key env var:
 
 Provider-specific common keys:
 - `OLLAMA_API_KEY`, `OLLAMA_BASE_URL`
-- `OLLAMA_CLOUD_API_KEY`, `OLLAMA_CLOUD_BASE_URL` (defaults to `https://ollama.com/`)
+- `OLLAMA_CLOUD_API_KEY`, `OLLAMA_CLOUD_BASE_URL` (defaults to `https://ollama.com/v1`)
 - `GROQ_API_KEY`
 - `TOGETHER_API_KEY`
 - `OPENROUTER_API_KEY`
 - `ANTHROPIC_API_KEY`
+
+Web search provider keys:
+- `TAVILY_API_KEY`
+- `GOOGLE_API_KEY`
+- `GOOGLE_CSE_ID`
 
 Claude model examples:
 - `claude-4-6-sonnet-latest`
@@ -137,6 +142,31 @@ When `save_artifacts=True`, each run creates:
 - `runs/run-<timestamp>/decision_log.md`
 - `runs/run-<timestamp>/final_output.md`
 - one markdown file per task name
+
+## Web search providers (Tavily, DuckDuckGo, Google CSE)
+
+You can use pluggable search providers:
+
+```python
+from simagents import (
+    TavilySearchProvider,
+    DuckDuckGoSearchProvider,
+    GoogleCustomSearchProvider,
+    format_search_results,
+)
+
+# Tavily
+tavily = TavilySearchProvider()  # needs TAVILY_API_KEY
+print(format_search_results(tavily.search("AI bioinformatics", max_results=3)))
+
+# DuckDuckGo (instant answer + related topics)
+ddg = DuckDuckGoSearchProvider()
+print(format_search_results(ddg.search("AI bioinformatics", max_results=3)))
+
+# Google Custom Search JSON API
+google = GoogleCustomSearchProvider()  # needs GOOGLE_API_KEY + GOOGLE_CSE_ID
+print(format_search_results(google.search("AI bioinformatics", max_results=3)))
+```
 
 ## Lifecycle hooks
 
