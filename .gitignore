@@ -1,0 +1,28 @@
+# Environment
+.env
+.env.*
+
+# Python cache/build
+__pycache__/
+*.py[cod]
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+
+# Virtualenvs
+.venv/
+venv/
+
+# Packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# OS/Editor
+.DS_Store
+.idea/
+.vscode/
+
+# Runtime artifacts
+runs/
