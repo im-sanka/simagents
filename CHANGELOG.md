@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1
+
+- Added opt-in exact LLM response caching to reduce repeated token/API usage
+- Added cache configuration fields to `RunConfig`
+- Added file-backed `LLMResponseCache`
+- Added cache hit/miss decision log entries
+- Added cache tests
+- Refreshed README with badges, caching docs, MIT footer, and project note
+
 ## 0.2.0
 
 - Updated `OllamaCloudProvider` default base URL to `https://ollama.com/v1`
