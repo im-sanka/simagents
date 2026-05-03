@@ -22,9 +22,15 @@
 - **Simple API** ✨: define agents + tasks + workflow, then run
 - **Production-lite defaults** 🧰: retries, logs, artifact folders, decision logs, optional cache
 
-## Install (local)
+## Install
 
-From the `simagents/` folder:
+From PyPI:
+
+```bash
+pip install simagents
+```
+
+For local development from the `simagents/` folder:
 
 ```bash
 pip install -e .

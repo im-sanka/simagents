@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Added PyPI install instructions to the README/package long description
+
 ## 0.2.1
 
 - Added opt-in exact LLM response caching to reduce repeated token/API usage
