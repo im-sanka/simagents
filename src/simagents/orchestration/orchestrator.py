@@ -7,6 +7,7 @@ from simagents.agent import EasyAgent
 from simagents.core.models import Hooks, OrchestratorResult, RunConfig, TaskSpec, WorkflowMode, WorkflowSpec
 from simagents.llm.provider import LLMProvider, OpenAICompatibleProvider
 from simagents.utils.artifacts import create_run_dir, save_text
+from simagents.utils.cache import LLMResponseCache
 from simagents.utils.logging_utils import setup_logging
 
 
@@ -27,7 +28,15 @@ class EasyOrchestrator:
         self.workflow = workflow
         self.run_config = run_config or RunConfig()
         self.provider = provider or OpenAICompatibleProvider()
-        self.agents = {a.name: EasyAgent(a, self.provider) for a in agents}
+        self.cache = (
+            LLMResponseCache(
+                cache_dir=self.run_config.cache_dir,
+                ttl_seconds=self.run_config.cache_ttl_seconds,
+            )
+            if self.run_config.cache_enabled
+            else None
+        )
+        self.agents = {a.name: EasyAgent(a, self.provider, cache=self.cache) for a in agents}
         self.tasks = tasks
         self.hooks = hooks or Hooks()
 
@@ -73,6 +82,10 @@ class EasyOrchestrator:
                 max_retries=self.run_config.max_retries,
                 backoff_seconds=self.run_config.retry_backoff_seconds,
             )
+            if result.metadata.get("cache_hit") is True:
+                decision_log.append(f"Task '{task.name}' reused cached output")
+            elif "cache_hit" in result.metadata and result.metadata.get("cache_hit") is False:
+                decision_log.append(f"Task '{task.name}' stored fresh output")
             if self.hooks.on_step_end:
                 self.hooks.on_step_end(task.name, result.content)
             return result.content

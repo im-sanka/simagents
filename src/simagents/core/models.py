@@ -40,6 +40,9 @@ class RunConfig(BaseModel):
     output_dir: str = "runs"
     save_artifacts: bool = True
     debug: bool = False
+    cache_enabled: bool = False
+    cache_dir: str = ".simagents_cache"
+    cache_ttl_seconds: int | None = None
 
 
 class Hooks(BaseModel):

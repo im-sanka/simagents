@@ -1,19 +1,26 @@
 # simagents
 
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Ollama](https://img.shields.io/badge/Ollama-ready-black)
+![OpenAI](https://img.shields.io/badge/OpenAI-compatible-green)
+![Anthropic](https://img.shields.io/badge/Anthropic-Claude-orange)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
 `simagents` is a lightweight Python framework for building multi-agent workflows with:
 
-- Linear, parallel, and loop orchestration modes
-- Agent-level model configuration
-- Prompt-planning friendly task chaining
-- Safe decision logs (reasoning summaries)
-- Retry/backoff + run artifact persistence
+- 🔁 Linear, parallel, and loop orchestration modes
+- 🤖 Agent-level model configuration
+- 🧭 Prompt-planning friendly task chaining
+- 📝 Safe decision logs (reasoning summaries)
+- 💾 Retry/backoff + run artifact persistence
+- ⚡ Optional exact-response caching to reduce repeated LLM calls
 
 ## Why simagents (vs broader frameworks)
 
-- **Workflow-first**: orchestration mode is a first-class setting (`linear`, `parallel`, `loop`)
-- **Prompt-planning native**: easy to build research → prompt-plan → execution flows
-- **Simple API**: define agents + tasks + workflow, then run
-- **Production-lite defaults**: retries, logs, artifact folders, decision logs
+- **Workflow-first** 🔁: orchestration mode is a first-class setting (`linear`, `parallel`, `loop`)
+- **Prompt-planning native** 🧭: easy to build research → prompt-plan → execution flows
+- **Simple API** ✨: define agents + tasks + workflow, then run
+- **Production-lite defaults** 🧰: retries, logs, artifact folders, decision logs, optional cache
 
 ## Install (local)
 
@@ -143,6 +150,35 @@ print(result.decision_log)
 # )
 ```
 
+## LLM response caching
+
+`simagents` can cache exact LLM invocations to reduce token/API usage when agents repeat the same work.
+
+Caching is disabled by default so prompt iteration remains fresh and unsurprising. Enable it in `RunConfig`:
+
+```python
+run_config = RunConfig(
+    output_dir="runs",
+    save_artifacts=True,
+    cache_enabled=True,
+    cache_dir=".simagents_cache",
+    cache_ttl_seconds=None,  # optional; set seconds to expire old entries
+)
+```
+
+Cache keys include:
+
+- provider class name
+- provider base URL, when available
+- model
+- temperature
+- full rendered prompt
+- internal cache version
+
+This means caching is safe and deterministic for exact repeats. If the prompt, model, temperature, or provider changes, `simagents` treats it as a new call.
+
+When caching is enabled, the decision log notes whether a task stored fresh output or reused cached output.
+
 ## Orchestration modes
 
 - `WorkflowMode.LINEAR`: run tasks one by one
@@ -258,3 +294,11 @@ You can attach optional hooks for observability/instrumentation:
 ```bash
 pytest -q
 ```
+
+## License
+
+MIT License. See [`LICENSE`](LICENSE) for details.
+
+---
+
+Built with <3 on a cloudy Sunday.
