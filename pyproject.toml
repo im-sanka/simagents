@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Lightweight multi-agent orchestration with prompt-planning workflows"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = "MIT"
 authors = [{ name = "simagents" }]
 keywords = ["agents", "llm", "orchestration", "multi-agent", "prompt-engineering"]
 classifiers = [
@@ -29,15 +29,16 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/immanuelsanka/simagents"
-Repository = "https://github.com/immanuelsanka/simagents"
-Issues = "https://github.com/immanuelsanka/simagents/issues"
+Homepage = "https://github.com/im-sanka/simagents"
+Repository = "https://github.com/im-sanka/simagents"
+Issues = "https://github.com/im-sanka/simagents/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0.0"]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+license-files = ["LICENSE"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
