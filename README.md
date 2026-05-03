@@ -49,6 +49,39 @@ SIMAGENTS_API_KEY=your_key
 SIMAGENTS_BASE_URL=https://api.openai.com/v1
 ```
 
+If you do **not** pass a provider explicitly to `EasyOrchestrator`, `simagents` uses
+`OpenAICompatibleProvider()` by default. In that case, set either:
+
+```bash
+export SIMAGENTS_API_KEY="your_api_key_here"
+export SIMAGENTS_BASE_URL="https://api.openai.com/v1"
+```
+
+or set OpenAI's standard key:
+
+```bash
+export OPENAI_API_KEY="sk-..."
+```
+
+For a one-off command without saving the variables in your shell session:
+
+```bash
+OPENAI_API_KEY="sk-..." python examples/research_prompt_plan.py
+```
+
+For an OpenAI-compatible provider such as Ollama Cloud:
+
+```bash
+SIMAGENTS_API_KEY="your_ollama_key" \
+SIMAGENTS_BASE_URL="https://ollama.com/v1" \
+python examples/research_prompt_plan.py
+```
+
+> Note: the model names in your agents must match the provider you use. The bundled
+> `examples/research_prompt_plan.py` uses `gpt-4o-mini`, which is an OpenAI model.
+> If you run it against Ollama Cloud, change the example agent models to an Ollama
+> Cloud model such as `gpt-oss:120b-cloud`.
+
 Fallback key env var:
 - `OPENAI_API_KEY`
 
@@ -124,10 +157,54 @@ Loop controls:
 
 ## Flagship example: research + prompt planning
 
-Run:
+From the `simagents/` folder, run:
 
 ```bash
 python examples/research_prompt_plan.py
+```
+
+If you installed `simagents` from the workspace root and want to run the example
+directly from this repository, you can also run:
+
+```bash
+python simagents/examples/research_prompt_plan.py
+```
+
+### Running the example with API keys
+
+OpenAI, using the example as-is (`gpt-4o-mini`):
+
+```bash
+OPENAI_API_KEY="sk-..." python simagents/examples/research_prompt_plan.py
+```
+
+OpenAI-compatible endpoint:
+
+```bash
+SIMAGENTS_API_KEY="your_key" \
+SIMAGENTS_BASE_URL="https://api.openai.com/v1" \
+python simagents/examples/research_prompt_plan.py
+```
+
+Ollama Cloud one-liner:
+
+```bash
+SIMAGENTS_API_KEY="your_ollama_key" \
+SIMAGENTS_BASE_URL="https://ollama.com/v1" \
+python simagents/examples/research_prompt_plan.py
+```
+
+For Ollama Cloud, update the example models first, for example:
+
+```python
+model="gpt-oss:120b-cloud"
+```
+
+You can also export keys once per terminal session:
+
+```bash
+export OPENAI_API_KEY="sk-..."
+python simagents/examples/research_prompt_plan.py
 ```
 
 This example demonstrates:
